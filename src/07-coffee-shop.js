@@ -5,16 +5,16 @@
  * need a system that calculates the total price of a coffee order.
  * Here's their menu:
  *
- * Base price by size:
- *   - "small"  → $3.00
- *   - "medium" → $4.00
- *   - "large"  → $5.00
+//  * Base price by size:
+//  *   - "small"  → $3.00
+//  *   - "medium" → $4.00
+//  *   - "large"  → $5.00
  *
- * Add-on for coffee type:
- *   - "regular"    → +$0.00
- *   - "latte"      → +$1.00
- *   - "cappuccino" → +$1.50
- *   - "mocha"      → +$2.00
+//  * Add-on for coffee type:
+//  *   - "regular"    → +$0.00
+//  *   - "latte"      → +$1.00
+//  *   - "cappuccino" → +$1.50
+//  *   - "mocha"      → +$2.00
  *
  * Optional extras:
  *   - whippedCream → +$0.50 (if true)
@@ -31,5 +31,36 @@
  * @returns {number} Total price or -1 for invalid input
  */
 export function calculateCoffeePrice(size, type, extras = {}) {
-  // Your code here
+  let price = 0;
+
+  // validate size
+  if (size !== "small" && size !== "medium" && size !== "large") {
+    return -1;
+  }
+
+  // validate type
+  if (
+    type !== "regular" &&
+    type !== "latte" &&
+    type !== "cappuccino" &&
+    type !== "mocha"
+  ) {
+    return -1;
+  }
+
+  // base price
+  if (size === "small") price += 3;
+  else if (size === "medium") price += 4;
+  else price += 5;
+
+  // type add-on
+  if (type === "latte") price += 1;
+  else if (type === "cappuccino") price += 1.5;
+  else if (type === "mocha") price += 2;
+
+  // extras (both can apply)
+  if (extras.whippedCream === true) price += 0.5;
+  if (extras.extraShot === true) price += 0.75;
+
+  return Number(price.toFixed(2));
 }
